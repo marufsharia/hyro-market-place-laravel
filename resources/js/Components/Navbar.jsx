@@ -53,7 +53,7 @@ export default function Navbar() {
                     {/* Left: Logo & Mobile Menu Button */}
                     <div className="flex">
                         <div className="flex-shrink-0 flex items-center">
-                            <Link href={route('market.index')} className="flex items-center gap-2 group">
+                            <Link href={route('home')} className="flex items-center gap-2 group">
                                 <div className="bg-teal-600 text-white p-1.5 rounded-lg group-hover:bg-teal-500 transition-colors">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                                 </div>
@@ -65,6 +65,9 @@ export default function Navbar() {
                         <div className="hidden sm:ml-8 sm:flex sm:space-x-8">
                             <Link href={route('market.index')} className="border-transparent text-slate-500 dark:text-slate-300 hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
                                 Plugins
+                            </Link>
+                            <Link href={route('docs.index')} className="border-transparent text-slate-500 dark:text-slate-300 hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
+                                Docs
                             </Link>
                             {auth?.user && (
                                 <Link href={route('admin.dashboard')} className="border-transparent text-slate-500 dark:text-slate-300 hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
@@ -210,6 +213,9 @@ export default function Navbar() {
                     <div className="pt-2 pb-3 space-y-1">
                         <Link href={route('market.index')} className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-teal-500 hover:text-teal-700">
                             Plugins
+                        </Link>
+                        <Link href={route('docs.index')} className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-teal-500 hover:text-teal-700">
+                            Docs
                         </Link>
                         {auth?.user && (
                             <Link href={route('admin.dashboard')} className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-teal-500 hover:text-teal-700">

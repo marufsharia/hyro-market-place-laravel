@@ -7,6 +7,7 @@ use App\Http\Controllers\PluginController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,12 @@ Route::prefix('market')->name('market.')->group(function () {
     Route::get('/', [MarketplaceController::class, 'index'])->name('index');
     Route::get('/{plugin:slug}', [MarketplaceController::class, 'show'])->name('show');
     Route::post('/{plugin:slug}/download', [MarketplaceController::class, 'download'])->name('download');
+});
+
+// Documentation
+Route::prefix('docs')->name('docs.')->group(function () {
+    Route::get('/', [DocumentationController::class, 'index'])->name('index');
+    Route::get('/{documentation:slug}', [DocumentationController::class, 'show'])->name('show');
 });
 
 // Dashboard

@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
         // Seed favorites (depends on plugins and users)
         $this->call(FavoriteSeeder::class);
 
+        // Seed documentation
+        $this->call(DocumentationSeeder::class);
+
         $this->command->info('Database seeding completed successfully!');
     }
 }
