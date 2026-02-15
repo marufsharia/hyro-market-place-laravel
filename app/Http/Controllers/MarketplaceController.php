@@ -124,9 +124,18 @@ class MarketplaceController extends Controller
                 $userReview = $pluginData->reviews()->where('user_id', auth()->id())->first();
             }
             
+            // Get related plugins (same category, exclude current)
+            $relatedPlugins = Plugin::where('category_id', $plugin->category_id)
+                ->where('id', '!=', $plugin->id)
+                ->where('status', 'active')
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
+            
             return inertia('Market/Show', [
                 'plugin' => $pluginData,
                 'userReview' => $userReview,
+                'relatedPlugins' => $relatedPlugins,
             ]);
         } catch (QueryException $e) {
             Log::error('Database error loading plugin details', [

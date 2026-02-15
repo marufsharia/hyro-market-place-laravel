@@ -14,12 +14,16 @@ class Plugin extends Model
 
     protected $fillable = [
         'user_id', 'category_id', 'name', 'slug', 'description', 'logo_path',
-        'version', 'status', 'compatibility', 'requirements', 'license_type',
-        'downloads', 'rating_avg', 'rating_count', 'published_at'
+        'screenshots', 'version', 'status', 'compatibility', 'requirements', 
+        'changelog', 'installation_instructions', 'documentation_url', 'support_url',
+        'demo_url', 'repository_url', 'license_type', 'downloads', 'rating_avg', 
+        'rating_count', 'published_at'
     ];
 
     protected $casts = [
         'requirements' => 'array',
+        'screenshots' => 'array',
+        'changelog' => 'array',
         'published_at' => 'datetime',
         'rating_avg' => 'decimal:2',
     ];
@@ -42,6 +46,11 @@ class Plugin extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 
     public function incrementDownload()

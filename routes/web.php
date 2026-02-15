@@ -6,6 +6,7 @@ use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\PluginController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
     // Favorites
     Route::post('/plugins/{plugin}/favorite', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    
+    // Reports
+    Route::post('/plugins/{plugin}/report', [ReportController::class, 'store'])->name('reports.store');
 });
 
 // Admin Routes

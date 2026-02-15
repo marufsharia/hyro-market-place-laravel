@@ -119,6 +119,21 @@ class PluginSeeder extends Seeder
                     'php' => '>=8.1',
                     'laravel' => '>=10.0',
                 ],
+                'changelog' => [
+                    [
+                        'version' => $pluginData['version'],
+                        'date' => now()->subDays(rand(1, 30))->format('Y-m-d'),
+                        'changes' => [
+                            'Initial release',
+                            'Core functionality implemented',
+                            'Documentation added'
+                        ]
+                    ]
+                ],
+                'installation_instructions' => "composer require hyro/{$pluginData['name']}\nphp artisan vendor:publish --tag=hyro-{$pluginData['name']}\nphp artisan migrate",
+                'documentation_url' => 'https://docs.hyro.dev/' . Str::slug($pluginData['name']),
+                'support_url' => 'https://support.hyro.dev/' . Str::slug($pluginData['name']),
+                'repository_url' => 'https://github.com/hyro/' . Str::slug($pluginData['name']),
                 'license_type' => $pluginData['license_type'],
                 'downloads' => $isActive ? rand(100, 5000) : 0,
                 'rating_avg' => 0.00, // Will be calculated by ReviewSeeder
