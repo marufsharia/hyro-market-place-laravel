@@ -179,7 +179,7 @@ export default function Show({ plugin, userReview, relatedPlugins, auth }) {
                                             <div className="flex items-center gap-2">
                                                 {renderStars(plugin.rating_avg || 0)}
                                                 <span className="text-sm text-slate-600 dark:text-slate-400">
-                                                    {plugin.rating_avg ? plugin.rating_avg.toFixed(1) : '0.0'} ({plugin.rating_count || 0} {plugin.rating_count === 1 ? 'review' : 'reviews'})
+                                                    {plugin.rating_avg ? Number(plugin.rating_avg).toFixed(1) : '0.0'} ({plugin.rating_count || 0} {plugin.rating_count === 1 ? 'review' : 'reviews'})
                                                 </span>
                                             </div>
                                         </div>
@@ -571,7 +571,7 @@ export default function Show({ plugin, userReview, relatedPlugins, auth }) {
                                                 <div className="flex items-center gap-1 text-xs">
                                                     {renderStars(related.rating_avg || 0)}
                                                     <span className="text-slate-500 dark:text-slate-400">
-                                                        {related.rating_avg ? related.rating_avg.toFixed(1) : '0.0'}
+                                                        {related.rating_avg ? Number(related.rating_avg).toFixed(1) : '0.0'}
                                                     </span>
                                                 </div>
                                             </div>
