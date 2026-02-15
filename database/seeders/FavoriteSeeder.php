@@ -19,20 +19,64 @@ class FavoriteSeeder extends Seeder
             return;
         }
 
-        // Each user favorites 1-5 random plugins
-        foreach ($users as $user) {
-            $favoriteCount = rand(1, 5);
-            $favoritePlugins = $plugins->random(min($favoriteCount, $plugins->count()));
+        $createdFavorites = 0;
 
-            foreach ($favoritePlugins as $plugin) {
-                // Check if favorite already exists to avoid duplicates
-                Favorite::firstOrCreate([
-                    'user_id' => $user->id,
-                    'plugin_id' => $plugin->id,
-                ]);
+        // Define user types with different favorite patterns
+        $userTypes = [
+            // 1. Power User - Favorites many plugins (20-30%)
+            'power' => 0.25,
+            // 2. Active User - Favorites several plugins (10-20%)
+            'active' => 0.15,
+            // 3. Casual User - Favorites a few plugins (5-10%)
+            'casual' => 0.08,
+            // 4. New User - Favorites 1-2 plugins (1-5%)
+            'new' => 0.03,
+            // 5. No favorites
+            'none' => 0,
+        ];
+
+        foreach ($users as $user) {
+            // Randomly assign user type
+            $rand = rand(1, 100) / 100;
+            
+            if ($rand < 0.10) {
+                $type = 'power';
+            } elseif ($rand < 0.30) {
+                $type = 'active';
+            } elseif ($rand < 0.60) {
+                $type = 'casual';
+            } elseif ($rand < 0.85) {
+                $type = 'new';
+            } else {
+                $type = 'none';
+            }
+
+            if ($type === 'none') {
+                continue;
+            }
+
+            // Calculate number of favorites based on user type
+            $favoriteCount = (int) ceil($plugins->count() * $userTypes[$type]);
+            $favoriteCount = max(1, min($favoriteCount, $plugins->count()));
+
+            // Randomly select plugins to favorite
+            $favoritedPlugins = $plugins->random(min($favoriteCount, $plugins->count()));
+
+            foreach ($favoritedPlugins as $plugin) {
+                try {
+                    Favorite::create([
+                        'user_id' => $user->id,
+                        'plugin_id' => $plugin->id,
+                        'created_at' => now()->subDays(rand(1, 120)),
+                    ]);
+                    $createdFavorites++;
+                } catch (\Exception $e) {
+                    // Skip if duplicate (unique constraint)
+                    continue;
+                }
             }
         }
 
-        $this->command->info('Favorites seeded successfully.');
+        $this->command->info("Favorites seeded successfully ($createdFavorites total).");
     }
 }
